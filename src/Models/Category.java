@@ -1,11 +1,13 @@
+package Models;
+
 import java.util.ArrayList;
 
 public class Category {
     private String name;
-    private ItemType type;
+    private ItemCategory type;
     private ArrayList<Item> items;
 
-    public Category(String name, ItemType type, ArrayList<Item> items) {
+    public Category(String name, ItemCategory type, ArrayList<Item> items) {
         this.name = name;
         this.type = type;
         this.items = items;
@@ -19,11 +21,11 @@ public class Category {
         this.name = name;
     }
 
-    public ItemType getType() {
+    public ItemCategory getType() {
         return type;
     }
 
-    public void setType(ItemType type) {
+    public void setType(ItemCategory type) {
         this.type = type;
     }
 

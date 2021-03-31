@@ -1,3 +1,4 @@
+package Models;
 
 public abstract class Item {
     protected User buyer;
@@ -5,13 +6,24 @@ public abstract class Item {
     protected String name;
     protected String description;
     protected int startingPrice;
+    protected int buyingPrice;
+    protected ItemCategory category;
 
-    public Item(User buyer, User seller, String name, String description, int startingPrice) {
-        this.buyer = buyer;
+    public Item(User seller, String name, String description, int startingPrice) {
         this.seller = seller;
         this.name = name;
         this.description = description;
         this.startingPrice = startingPrice;
+        this.buyer = null;
+        this.buyingPrice = 0;
+    }
+
+    public ItemCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(ItemCategory category) {
+        this.category = category;
     }
 
     public User getBuyer() {
@@ -54,14 +66,23 @@ public abstract class Item {
         this.startingPrice = startingPrice;
     }
 
+    public int getBuyingPrice() {
+        return buyingPrice;
+    }
+
+    public void setBuyingPrice(int buyingPrice) {
+        this.buyingPrice = buyingPrice;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
-                "buyer=" + buyer +
+                "buyer=" + (buyer != null ? buyer : "not sold yet") +
                 ", seller=" + seller +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", startingPrice=" + startingPrice +
+                ", buyingPrice=" + buyingPrice +
                 '}';
     }
 }

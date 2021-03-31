@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Date;
-
+import Models.Bid;
 
 public class Main {
     public static void main(String[] args) {

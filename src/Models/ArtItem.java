@@ -1,3 +1,4 @@
+package Models;
 
 public final class ArtItem extends Item {
     private String author;
@@ -5,8 +6,8 @@ public final class ArtItem extends Item {
     // painting, sculpture, etc...
     private String type;
 
-    public ArtItem(User buyer, User seller, String name, String description, int startingPrice, String author, String type) {
-        super(buyer, seller, name, description, startingPrice);
+    public ArtItem(User seller, String name, String description, int startingPrice, String author, String type) {
+        super(seller, name, description, startingPrice);
         this.author = author;
         this.type = type;
     }

@@ -1,9 +1,10 @@
+package Models;
 
 public final class CompanyItem extends Item {
     private int stockAmount;
 
-    public CompanyItem(User buyer, User seller, String name, String description, int startingPrice, int stockAmount) {
-        super(buyer, seller, name, description, startingPrice);
+    public CompanyItem(User seller, String name, String description, int startingPrice, int stockAmount) {
+        super(seller, name, description, startingPrice);
         this.stockAmount = stockAmount;
     }
 

@@ -1,4 +1,4 @@
-
+package Models;
 
 public class Bid {
     private int amount;
@@ -17,7 +17,7 @@ public class Bid {
 
     @Override
     public String toString() {
-        return "Bid{" +
+        return "Models.Bid{" +
                 "amount=" + amount +
                 '}';
     }

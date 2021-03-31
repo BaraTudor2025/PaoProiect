@@ -1,3 +1,5 @@
+package Models;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -5,13 +7,24 @@ public class Auction {
     private Category category;
     private Item itemSold;
     private ArrayList<Bid> bids;
+    //private Bid winningBid;
     private Date date;
 
-    public Auction(Category category, Item itemSold, ArrayList<Bid> bids, Date date) {
+    public Auction(Category category, Item itemSold, Date date) {
         this.category = category;
         this.itemSold = itemSold;
-        this.bids = bids;
         this.date = date;
+
+    }
+
+    Bid getWinningBid() {
+        if (bids.isEmpty()) {
+            return new Bid(0);
+        }
+        else {
+            var optMax = bids.stream().map(Bid::getAmount).max(Integer::compare);
+            return new Bid(optMax.orElse(0));
+        }
     }
 
     public Category getCategory() {
