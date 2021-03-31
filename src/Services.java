@@ -81,26 +81,26 @@ public class Services {
         System.out.println(auction);
     }
 
-    public static void showSoldAntiqueItemsAges(HashMap<ItemCategory, Category> categories){
+    public static void showBiddingAntiqueItemsAges(HashMap<ItemCategory, Category> categories){
         var category = categories.get(ItemCategory.Antique);
         for(var item : category.getItems()){
-            if(item.getBuyer() != null)
+            if(item.getBuyer() == null)
                 System.out.println("Antique item " + item.getName() + " has " + ((AntiqueItem)item).getAge() + " years");
         }
     }
 
-    public static void showSoldCompaniesStocks(HashMap<ItemCategory, Category> categories){
+    public static void showBiddingCompaniesStocks(HashMap<ItemCategory, Category> categories){
         var category = categories.get(ItemCategory.Company);
         for(var item : category.getItems()){
-            if(item.getBuyer() != null)
+            if(item.getBuyer() == null)
                 System.out.println("Company " + item.getName() + " sold " + ((CompanyItem)item).getStockAmount() + " stocks");
         }
     }
 
-    public static void showSoldArtPieces(HashMap<ItemCategory, Category> categories){
+    public static void showBiddingArtPieces(HashMap<ItemCategory, Category> categories){
         var category = categories.get(ItemCategory.Art);
         for(var item : category.getItems()){
-            if(item.getBuyer() != null){
+            if(item.getBuyer() == null){
                 ArtItem artItem = (ArtItem)item;
                 System.out.println(artItem.getType() + " by " + artItem.getAuthor()+ " sold with " + artItem.getBuyingPrice());
             }

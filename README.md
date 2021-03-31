@@ -1,7 +1,5 @@
 # Sistem de licitatii in dezvoltare
 
----
-
 ## Clase:
 * Auction
 * User
@@ -14,8 +12,15 @@
 * CompanyItem
 
 ## Actions:
-1. Cat a cheltuit un user in total la licitatii
-2. Cat a castigat un user in total la licitatii 
-   
+* Cat a cheltuit un User in total la licitatii
+* Cat a castigat un User in total la licitatii 
+* Vezi numarul de obiecte cumparate de catre un User pe categorii
+* Cati bani au fost cheltuiti in total intr-o categorie de iteme
+* Cati bani au fost cheltuiti in medie intr-o categorie de iteme
+* Informatii despre o licitatie
+* Vezi lista cu Iteme Antique in licitatie si cat de vechi sunt
+* Vezi lista cu Stock-uri in licitatie
+* Vezi lista cu Arta in licitatie 
 
+TODO:
 De documentat restu in detaliu...
