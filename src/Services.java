@@ -48,10 +48,13 @@ public class Services {
             switch(item.getCategory()){
                 case Antique:
                     antique += 1;
+                    break;
                 case Art:
                     art += 1;
+                    break;
                 case Company:
                     company += 1;
+                    break;
             }
         }
         System.out.println("User " + user.getName() +  " bought " + art + " pieces of art, "
