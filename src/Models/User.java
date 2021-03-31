@@ -9,6 +9,9 @@ public class User {
     private ArrayList<Item> itemsBought;
     private ArrayList<Item> itemsSold;
 
+    public User(){
+    }
+
     public User(String name, ArrayList<Item> itemsBought, ArrayList<Item> itemsSold) {
         this.name = name;
         this.itemsBought = itemsBought;

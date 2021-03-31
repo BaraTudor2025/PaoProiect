@@ -1,26 +1,8 @@
-
-/* actions:
- * 1. max bid from an auction(winning bid)
- * 2. max winning bid from all time
- * 3. max winning bid from buyer
- * 4. max bid that a seller got
- * 5. total money spend by a buyer
- * 6. total mosey earned by a seller
- * 7. average/max bid from a category
- * 8. profile of a user(history of events that he participated)
- * 9. total money spend by a buyer
- * 10.user buys item through high bid
- * 11.Models.Auction.java for product:
- * - Select product
- * - user places bid
- * - user with highest bid wins(after special command)
- * - user now has bought item
- */
-
 import Models.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Services {
 
@@ -45,16 +27,10 @@ public class Services {
     public static void showWhatItemsUserBought(User user){
         int art = 0, company = 0, antique = 0;
         for(var item : user.getItemsBought()){
-            switch(item.getCategory()){
-                case Antique:
-                    antique += 1;
-                    break;
-                case Art:
-                    art += 1;
-                    break;
-                case Company:
-                    company += 1;
-                    break;
+            switch (item.getCategory()) {
+                case Antique -> antique += 1;
+                case Art -> art += 1;
+                case Company -> company += 1;
             }
         }
         System.out.println("User " + user.getName() +  " bought " + art + " pieces of art, "
@@ -84,7 +60,7 @@ public class Services {
         System.out.println(auction);
     }
 
-    public static void showBiddingAntiqueItemsAges(HashMap<ItemCategory, Category> categories){
+    public static void showBiddingAntiqueItemsAges(Map<ItemCategory, Category> categories){
         var category = categories.get(ItemCategory.Antique);
         for(var item : category.getItems()){
             if(item.getBuyer() == null)
@@ -92,7 +68,7 @@ public class Services {
         }
     }
 
-    public static void showBiddingCompaniesStocks(HashMap<ItemCategory, Category> categories){
+    public static void showBiddingCompaniesStocks(Map<ItemCategory, Category> categories){
         var category = categories.get(ItemCategory.Company);
         for(var item : category.getItems()){
             if(item.getBuyer() == null)
@@ -100,7 +76,7 @@ public class Services {
         }
     }
 
-    public static void showBiddingArtPieces(HashMap<ItemCategory, Category> categories){
+    public static void showBiddingArtPieces(Map<ItemCategory, Category> categories){
         var category = categories.get(ItemCategory.Art);
         for(var item : category.getItems()){
             if(item.getBuyer() == null){

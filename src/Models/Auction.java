@@ -10,6 +10,9 @@ public class Auction {
     //private Bid winningBid;
     private Date date;
 
+    public Auction (){
+    }
+
     public Auction(Category category, Item itemSold, Date date) {
         this.category = category;
         this.itemSold = itemSold;

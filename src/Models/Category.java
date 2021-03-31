@@ -7,6 +7,12 @@ public class Category {
     private ItemCategory type;
     private ArrayList<Item> items;
 
+    public Category(String name, ItemCategory type) {
+        this.name = name;
+        this.type = type;
+        this.items = null;
+    }
+
     public Category(String name, ItemCategory type, ArrayList<Item> items) {
         this.name = name;
         this.type = type;
