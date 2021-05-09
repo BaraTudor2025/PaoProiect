@@ -10,7 +10,7 @@ public class Category {
     public Category(String name, ItemCategory type) {
         this.name = name;
         this.type = type;
-        this.items = null;
+        this.items = new ArrayList<>();
     }
 
     public Category(String name, ItemCategory type, ArrayList<Item> items) {

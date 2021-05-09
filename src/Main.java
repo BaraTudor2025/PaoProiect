@@ -4,8 +4,13 @@ import java.io.IOException;
 import java.util.*;
 
 public class Main {
+
+    static final private TreeMap<ItemCategory, Category> categories = new TreeMap<>();
+
     public static void main(String[] args) {
         boolean quit = false;
+        TreeMap<ItemCategory, Category> categories = FileManager.readCategories();
+
         while(!quit) {
             Scanner scanner = new Scanner(System.in);
             try {
@@ -27,38 +32,48 @@ public class Main {
                     case 1:
                         // dummy values, pun valori reale cand deserializez datele din fisiere CVS
                         Services.totalMoneySpendByUser(new User());
+                        FileManager.writeActionLog("show-totalMoneySpendByUser");
                         break;
                     case 2:
                         Services.totalMoneyEarnedByUser(new User());
+                        FileManager.writeActionLog("show-totalMoneyEarnedByUser");
                         break;
                     case 3:
                         Services.showWhatItemsUserBought(new User());
+                        FileManager.writeActionLog("show-whatItemsUserBought");
                         break;
                     case 4:
                         Services.totalMoneySpendInCategoryOfItems(new Category("Arta", ItemCategory.Art));
+                        FileManager.writeActionLog("show-totalMoneySpendInCategoryOfItems");
                         break;
                     case 5:
                         Services.averageMoneySpendInCategoryOfItems(new Category("Antique", ItemCategory.Antique));
+                        FileManager.writeActionLog("show-averageMoneySpendInCategoryOfItems");
                         break;
                     case 6:
                         Services.showAuctionInfo(new Auction());
+                        FileManager.writeActionLog("show-auctionInfo");
                         break;
                     case 7: {
-                        var categories = new TreeMap<ItemCategory, Category>();
+                        //var categories = new TreeMap<ItemCategory, Category>();
                         var category = new Category("stocks", ItemCategory.Company);
                         category.setItems(new ArrayList<>(Arrays.asList(new CompanyItem(new User(), "GME", "nush", 200, 4000))));
                         categories.put(ItemCategory.Company, category);
                         Services.showBiddingAntiqueItemsAges(categories);
+                        FileManager.writeActionLog("show-biddingAntiqueItemsAges");
                         break;
                     }
                     case 8:
                         Services.showBiddingCompaniesStocks(new TreeMap<ItemCategory, Category>());
+                        FileManager.writeActionLog("show-biddingCompaniesStocks");
                         break;
                     case 9:
                         Services.showBiddingArtPieces(new TreeMap<ItemCategory, Category>());
+                        FileManager.writeActionLog("show-biddingArtPieces");
                         break;
                     case 10:
                         System.out.println(new Auction().getItemSold().getBuyer());
+                        FileManager.writeActionLog("show-buyerInAuction");
                         break;
                     case 11:
                         quit = true;

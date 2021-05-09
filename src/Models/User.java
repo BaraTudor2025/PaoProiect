@@ -4,12 +4,19 @@ import Models.Item;
 
 import java.util.ArrayList;
 
+
+/* campurile itemsBought si itemsSold sunt generate din toate itemele */
 public class User {
     private String name;
     private ArrayList<Item> itemsBought;
     private ArrayList<Item> itemsSold;
 
-    public User(){
+    public User(){ }
+
+    public User(String name){
+        this.name = name;
+        this.itemsBought = null;
+        this.itemsSold = null;
     }
 
     public User(String name, ArrayList<Item> itemsBought, ArrayList<Item> itemsSold) {

@@ -9,6 +9,8 @@ public abstract class Item {
     protected int buyingPrice;
     protected ItemCategory category;
 
+    public Item(){ }
+
     public Item(User seller, String name, String description, int startingPrice) {
         this.seller = seller;
         this.name = name;
