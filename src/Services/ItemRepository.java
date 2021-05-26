@@ -8,8 +8,8 @@ import Models.*;
 
 public class ItemRepository {
 
-    private Connection conn;
-    private TreeMap<ItemCategory, Category> items;
+    private final Connection conn;
+    private final TreeMap<ItemCategory, Category> items;
     private static ItemRepository repo = null;
 
     private ItemRepository() {
@@ -31,35 +31,38 @@ public class ItemRepository {
     public void insertItem(Item item)
     {
         try {
-            CallableStatement cst = conn.prepareCall("{call insertItem(?,?,?)}");
-            cst.registerOutParameter(1, Types.INTEGER); //out param (result of the procedure call)
+            CallableStatement cst = conn.prepareCall("{call insertItem(?,?,?,?,?,?)}");
             cst.setString(2, item.getName());
             cst.setString(3, item.getDescription());
             cst.setDouble(4, item.getStartingPrice());
             cst.setString(5, item.getCategory().name());
             cst.setInt(6, item.getSeller().getId());
+            cst.registerOutParameter(1, Types.INTEGER);
             cst.execute();
             item.setId(cst.getInt(1));
 
             switch (item.getCategory()) {
                 case Antique -> {
                     PreparedStatement st = conn.prepareStatement("insert into antiqueitems(id, age) values (?, ?);");
-                    var iitem = (AntiqueItem)item;
-                    st.setInt(1, iitem.getId());
-                    st.setInt(2, iitem.getAge());
+                    var aitem = (AntiqueItem)item;
+                    st.setInt(1, aitem.getId());
+                    st.setInt(2, aitem.getAge());
+                    st.execute();
                 }
                 case Company -> {
                     PreparedStatement st = conn.prepareStatement("insert into companyitems(id, stock) values (?, ?);");
-                    var iitem = (CompanyItem) item;
-                    st.setInt(1, iitem.getId());
-                    st.setInt(2, iitem.getStockAmount());
+                    var citem = (CompanyItem) item;
+                    st.setInt(1, citem.getId());
+                    st.setInt(2, citem.getStockAmount());
+                    st.execute();
                 }
                 case Art -> {
                     PreparedStatement st = conn.prepareStatement("insert into artitems(id, author, art_type) values (?, ?, ?);");
-                    var iitem = (ArtItem)item;
-                    st.setInt(1, iitem.getId());
-                    st.setString(2, iitem.getAuthor());
-                    st.setString(3, iitem.getType());
+                    var aitem = (ArtItem)item;
+                    st.setInt(1, aitem.getId());
+                    st.setString(2, aitem.getAuthor());
+                    st.setString(3, aitem.getType());
+                    st.execute();
                 }
             }
             items.get(item.getCategory()).getItems().add(item);
@@ -86,9 +89,14 @@ public class ItemRepository {
     public TreeMap<ItemCategory, Category> readItems()
     {
         var items = new TreeMap<ItemCategory, Category>();
-        var artItems = items.put(ItemCategory.Art, new Category(ItemCategory.Art));
-        var antiqueItems = items.put(ItemCategory.Antique, new Category(ItemCategory.Antique));
-        var companyItems = items.put(ItemCategory.Company, new Category(ItemCategory.Company));
+        var artItems = new Category(ItemCategory.Art);
+        items.put(ItemCategory.Art, artItems);
+
+        var antiqueItems = new Category(ItemCategory.Antique);
+        items.put(ItemCategory.Antique, antiqueItems);
+
+        var companyItems = new Category(ItemCategory.Company);
+        items.put(ItemCategory.Company, companyItems);
 
         try {
             PreparedStatement st = conn.prepareStatement("select id from items;");
@@ -107,6 +115,7 @@ public class ItemRepository {
             e.printStackTrace();
             return null;
         }
+
     }
 
     // update
@@ -149,15 +158,19 @@ public class ItemRepository {
                     item.setBuyingPrice(resultSet.getInt(5));
                     item.setCategory(ItemCategory.valueOf(resultSet.getString(6)));
                     final int userId1 = resultSet.getInt(7);
-                    if(userId1 != -1){
+                    if(userId1 != 0){
                         var buyer = UserRepository.getRepo().getUsers().stream().filter(user -> user.getId() == userId1).findFirst();
                         item.setBuyer(buyer.get());
+                        buyer.get().getItemsBought().add(item);
                     } else {
                         item.setBuyer(null);
                     }
                     final int userId2 = resultSet.getInt(8);
                     var seller = UserRepository.getRepo().getUsers().stream().filter(user -> user.getId() == userId2).findFirst();
                     item.setSeller(seller.get());
+                    if(item.getBuyer() != null){
+                        seller.get().getItemsSold().add(item);
+                    }
 
                 } catch (Exception e){
                     e.printStackTrace();
@@ -169,9 +182,10 @@ public class ItemRepository {
                     var item = new AntiqueItem();
                     setupItem.accept(item);
 
-                    PreparedStatement st = conn.prepareStatement("select * from antiqueitems where id=?");
+                    PreparedStatement st = conn.prepareStatement("select age from antiqueitems where id=?");
                     st.setInt(1, item.getId());
                     var res = st.executeQuery();
+                    res.next();
                     item.setAge(res.getInt(1));
                     return item;
                 }
@@ -179,9 +193,10 @@ public class ItemRepository {
                     var item = new CompanyItem();
                     setupItem.accept(item);
 
-                    PreparedStatement st = conn.prepareStatement("select * from companyitems where id=?");
+                    PreparedStatement st = conn.prepareStatement("select stock from companyitems where id=?;");
                     st.setInt(1, item.getId());
                     var res = st.executeQuery();
+                    res.next();
                     item.setStockAmount(res.getInt(1));
                     return item;
                 }
@@ -189,9 +204,10 @@ public class ItemRepository {
                     var item = new ArtItem();
                     setupItem.accept(item);
 
-                    PreparedStatement st = conn.prepareStatement("select * from artitems where id=?");
+                    PreparedStatement st = conn.prepareStatement("select author, art_type from artitems where id=?");
                     st.setInt(1, item.getId());
                     var res = st.executeQuery();
+                    res.next();
                     item.setAuthor(res.getString(1));
                     item.setType(res.getString(2));
                     return item;

@@ -3,7 +3,19 @@ package Services;
 import Models.Item;
 import Models.User;
 
+import java.util.Scanner;
+
 public class UserServices {
+    public static void addUser(Scanner scanner){
+        System.out.print("Nume:");
+        String name = scanner.next();
+        if(!name.isEmpty()){
+            UserRepository.getRepo().insertUser(new User(0, name));
+        } else {
+            System.out.println("");
+        }
+    }
+
     public static void printUsers(){
         for(var user : UserRepository.getRepo().readUsers()){
             System.out.println(user.getName());

@@ -6,17 +6,14 @@ import java.util.Date;
 public class Auction {
     private Item itemSold;
     private ArrayList<Bid> bids;
-    //private Bid winningBid;
     private Date date;
 
     public Auction (){
     }
 
-    public Auction(Category category, Item itemSold, Date date) {
-        //this.category = category;
+    public Auction(Item itemSold, Date date) {
         this.itemSold = itemSold;
         this.date = date;
-
     }
 
     Bid getWinningBid() {

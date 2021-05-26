@@ -6,12 +6,15 @@ public final class ArtItem extends Item {
     // painting, sculpture, etc...
     private String type;
 
-    public ArtItem(){ }
+    public ArtItem(){
+        this.category = ItemCategory.Art;
+    }
 
     public ArtItem(int id, User seller, String name, String description, int startingPrice, String author, String type) {
         super(id, seller, name, description, startingPrice);
         this.author = author;
         this.type = type;
+        this.category = ItemCategory.Art;
     }
 
     public String getAuthor() {

@@ -7,8 +7,8 @@ import Models.*;
 
 public class UserRepository {
 
-    private Connection conn;
-    private ArrayList<User> users;
+    private final Connection conn;
+    private final ArrayList<User> users;
     private static UserRepository repo = null;
 
     public static UserRepository getRepo(){
@@ -24,6 +24,11 @@ public class UserRepository {
 
     public ArrayList<User> getUsers(){
         return this.users;
+    }
+
+    public User findByName(String name){
+        var user = UserRepository.getRepo().getUsers().stream().filter(u -> u.getName().equals(name)).findFirst();
+        return user.orElse(null);
     }
 
     public ArrayList<User> readUsers(){
@@ -43,8 +48,9 @@ public class UserRepository {
     public void insertUser(User user){
         try {
             CallableStatement st = conn.prepareCall("{call insertUser(?, ?)}");
-            st.registerOutParameter(1, Types.INTEGER);
             st.setString(2, user.getName());
+            st.registerOutParameter(1, Types.INTEGER);
+
             st.execute();
             user.setId(st.getInt(1));
             System.out.println("user-id: " + st.getInt(1));

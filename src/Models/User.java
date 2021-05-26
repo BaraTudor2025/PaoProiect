@@ -14,8 +14,8 @@ public class User {
     public User(int id, String name){
         this.id = id;
         this.name = name;
-        this.itemsBought = null;
-        this.itemsSold = null;
+        this.itemsBought = new ArrayList<>();
+        this.itemsSold = new ArrayList<>();
     }
 
     public User(int id, String name, ArrayList<Item> itemsBought, ArrayList<Item> itemsSold) {

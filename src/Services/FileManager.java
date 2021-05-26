@@ -25,7 +25,7 @@ interface ThrowingConsumer<T> extends Consumer<T> {
     void acceptThrows(T elem) throws IOException;
 }
 
-
+/****** serviciu CSV nefolosit *******/
 public class FileManager {
 
     static void readCSV(String filePath, Consumer<String[]> proc)

@@ -3,11 +3,14 @@ package Models;
 public final class AntiqueItem extends Item {
     private int age; // in years
 
-    public AntiqueItem() { }
+    public AntiqueItem() {
+        this.category = ItemCategory.Antique;
+    }
 
     public AntiqueItem(int id, User seller, String name, String description, int startingPrice, int age) {
         super(id, seller, name, description, startingPrice);
         this.age = age;
+        this.category = ItemCategory.Antique;
     }
 
     public int getAge() {

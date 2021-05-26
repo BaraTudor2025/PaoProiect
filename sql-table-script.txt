@@ -1,0 +1,64 @@
+-- rulat in mysql workbench
+
+CREATE TABLE IF NOT EXISTS users
+(id int primary key auto_increment,
+name varchar(30)
+);
+
+CREATE TABLE IF NOT EXISTS items
+(id int PRIMARY KEY AUTO_INCREMENT, 
+name varchar(30), 
+description varchar(200),
+startingPrice int, 
+buyingPrice int, 
+category varchar(20),
+buyer_id int,
+seller_id int,
+foreign key (buyer_id) references users(id) on delete cascade,
+foreign key (seller_id) references users(id) on delete cascade
+);
+
+create table if not exists artitems
+(id int primary key,
+author varchar(30),
+art_type varchar(30),
+foreign key (id) references items(id) on delete cascade
+);
+create table if not exists antiqueitems
+(id int primary key,
+age int,
+foreign key (id) references items(id) on delete cascade
+);
+create table if not exists companyitems
+(id int primary key,
+stock int,
+foreign key (id) references items(id) on delete cascade
+);
+
+delimiter //
+create procedure insertItem(
+	out id int, in name varchar(30), in description varchar(200),
+	in startingPrice int, in category varchar(20), in seller_id int)
+begin
+	insert into items(name, description, startingPrice, buyingPrice, category, buyer_id, seller_id)  
+	values(name, description, startingPrice, 0, category, null, seller_id);
+    set id = LAST_INSERT_ID();
+end//
+delimiter ;
+
+delimiter //
+create procedure insertUser(out id int, in name varchar(30))
+begin
+	insert into users(name) values (name);
+	set id = last_insert_id();
+end//
+delimiter ;
+
+--create table if not exists action_logs
+--(id int primary key auto_increment,
+--action_name varchar(30),
+--action_date datetime default current_timestamp
+--);
+
+
+
