@@ -71,7 +71,7 @@ public class Main {
                         FileManager.writeActionLog("show-averageMoneySpendInCategoryOfItems");
                         break;
                     case 11:
-                        Services.showAuctionInfo(new Auction());
+                        System.out.println(new Auction());
                         FileManager.writeActionLog("show-auctionInfo");
                         break;
                     case 12: {
@@ -79,16 +79,16 @@ public class Main {
                         var category = new Category(ItemCategory.Company);
                         category.setItems(new ArrayList<>(Arrays.asList(new CompanyItem(0, new User(), "GME", "nush", 200, 4000))));
                         categories.put(ItemCategory.Company, category);
-                        Services.showBiddingAntiqueItemsAges(categories);
+                        ItemServices.showBiddingAntiqueItemsAges(categories);
                         FileManager.writeActionLog("show-biddingAntiqueItemsAges");
                         break;
                     }
                     case 13:
-                        Services.showBiddingCompaniesStocks(new TreeMap<ItemCategory, Category>());
+                        ItemServices.showBiddingCompaniesStocks(new TreeMap<ItemCategory, Category>());
                         FileManager.writeActionLog("show-biddingCompaniesStocks");
                         break;
                     case 14:
-                        Services.showBiddingArtPieces(new TreeMap<ItemCategory, Category>());
+                        ItemServices.showBiddingArtPieces(new TreeMap<ItemCategory, Category>());
                         FileManager.writeActionLog("show-biddingArtPieces");
                         break;
                     case 15:
