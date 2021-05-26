@@ -1,28 +1,36 @@
 package Models;
 
-import Models.Item;
-
 import java.util.ArrayList;
-
 
 /* campurile itemsBought si itemsSold sunt generate din toate itemele */
 public class User {
+    private int id;
     private String name;
     private ArrayList<Item> itemsBought;
     private ArrayList<Item> itemsSold;
 
     public User(){ }
 
-    public User(String name){
+    public User(int id, String name){
+        this.id = id;
         this.name = name;
         this.itemsBought = null;
         this.itemsSold = null;
     }
 
-    public User(String name, ArrayList<Item> itemsBought, ArrayList<Item> itemsSold) {
+    public User(int id, String name, ArrayList<Item> itemsBought, ArrayList<Item> itemsSold) {
+        this.id = id;
         this.name = name;
         this.itemsBought = itemsBought;
         this.itemsSold = itemsSold;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -57,4 +65,6 @@ public class User {
                 ", itemsSold=" + itemsSold +
                 '}';
     }
+
+
 }

@@ -3,28 +3,17 @@ package Models;
 import java.util.ArrayList;
 
 public class Category {
-    private String name;
     private ItemCategory type;
     private ArrayList<Item> items;
 
-    public Category(String name, ItemCategory type) {
-        this.name = name;
+    public Category(ItemCategory type) {
         this.type = type;
         this.items = new ArrayList<>();
     }
 
-    public Category(String name, ItemCategory type, ArrayList<Item> items) {
-        this.name = name;
+    public Category(ItemCategory type, ArrayList<Item> items) {
         this.type = type;
         this.items = items;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public ItemCategory getType() {
@@ -46,7 +35,6 @@ public class Category {
     @Override
     public String toString() {
         return "Category{" +
-                "name='" + name + '\'' +
                 ", type=" + type +
                 ", items=" + items +
                 '}';

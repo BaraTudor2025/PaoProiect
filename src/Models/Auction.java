@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Auction {
-    private Category category;
     private Item itemSold;
     private ArrayList<Bid> bids;
     //private Bid winningBid;
@@ -14,7 +13,7 @@ public class Auction {
     }
 
     public Auction(Category category, Item itemSold, Date date) {
-        this.category = category;
+        //this.category = category;
         this.itemSold = itemSold;
         this.date = date;
 
@@ -28,14 +27,6 @@ public class Auction {
             var optMax = bids.stream().map(Bid::getAmount).max(Integer::compare);
             return new Bid(optMax.orElse(0));
         }
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
     public Item getItemSold() {
@@ -65,7 +56,6 @@ public class Auction {
     @Override
     public String toString() {
         return "Auction{" +
-                "category=" + category +
                 ", itemSold=" + itemSold +
                 ", bids=" + bids +
                 ", date=" + date +

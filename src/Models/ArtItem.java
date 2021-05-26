@@ -8,8 +8,8 @@ public final class ArtItem extends Item {
 
     public ArtItem(){ }
 
-    public ArtItem(User seller, String name, String description, int startingPrice, String author, String type) {
-        super(seller, name, description, startingPrice);
+    public ArtItem(int id, User seller, String name, String description, int startingPrice, String author, String type) {
+        super(id, seller, name, description, startingPrice);
         this.author = author;
         this.type = type;
     }

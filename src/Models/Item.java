@@ -1,6 +1,7 @@
 package Models;
 
 public abstract class Item {
+    protected int id;
     protected User buyer;
     protected User seller;
     protected String name;
@@ -11,13 +12,22 @@ public abstract class Item {
 
     public Item(){ }
 
-    public Item(User seller, String name, String description, int startingPrice) {
+    public Item(int id, User seller, String name, String description, int startingPrice) {
+        this.id = id;
         this.seller = seller;
         this.name = name;
         this.description = description;
         this.startingPrice = startingPrice;
         this.buyer = null;
         this.buyingPrice = 0;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public ItemCategory getCategory() {
@@ -87,4 +97,6 @@ public abstract class Item {
                 ", buyingPrice=" + buyingPrice +
                 '}';
     }
+
+
 }

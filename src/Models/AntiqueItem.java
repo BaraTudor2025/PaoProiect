@@ -5,8 +5,8 @@ public final class AntiqueItem extends Item {
 
     public AntiqueItem() { }
 
-    public AntiqueItem(User seller, String name, String description, int startingPrice, int age) {
-        super(seller, name, description, startingPrice);
+    public AntiqueItem(int id, User seller, String name, String description, int startingPrice, int age) {
+        super(id, seller, name, description, startingPrice);
         this.age = age;
     }
 
